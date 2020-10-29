@@ -34,6 +34,7 @@ Wehen user is pressing either of the buttons, the system should provide a Serial
 
 #### Result:
 Failed, the push buttons we had are for soidering use, we can't use it on a breadboard.
+![Incorrect SMD push btn](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/IMG_0093.jpeg)
 
 #### Finding:
 
@@ -57,3 +58,5 @@ For this test case, we need a dramatical change in humidity within a short perio
 
 #### Result:
 Success, the LED turned from green to red with the humidity reading rise to 60%+.
+![System just run in](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/IMG_0090.jpeg)
+![Sudden change in humdity](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/IMG_0091.jpeg)
