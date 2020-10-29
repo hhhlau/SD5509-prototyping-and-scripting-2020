@@ -13,6 +13,8 @@ const int dht22DataPin = 2; // The data pin for DHT 22
 DHT dht(dht22DataPin, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
 
 
+int feelHotStatus = 0;
+
 float tempVal = 0.0;
 float humidityVal = 0.0;
 
@@ -56,6 +58,17 @@ void offAllLeds() {
 }
 
 void loop() {
+    feelHotStatus = digitalRead(feelHotBtnPin);
+    if(feelHotStatus) {
+      Serial.println("User from Prototype 1 feels hot for the current climate");
+      Serial.println("-------------------------------------------------------");
+      Serial.print("| Humidity: ");
+    Serial.print(humidityVal);
+    Serial.print(" %, Temp: ");
+    Serial.print(tempVal);
+    Serial.println(" Celsius  |");
+      Serial.println("-------------------------------------------------------");
+    }
     
     delay(2000);
     //Read data and store it to variables hum and temp
@@ -75,5 +88,5 @@ void loop() {
     Serial.print(" %, Temp: ");
     Serial.print(tempVal);
     Serial.println(" Celsius");
-    delay(10000); //Delay 2 sec.
+    delay(2000); //Delay 2 sec.
 }
