@@ -18,8 +18,21 @@ In an outdoor enviroment, we adopt 3 set of testing probes for comparison:
 3. Physical thermometer & humidity meter (Control)
 
 #### Result:
+Success, the the prototype 1's data is fulfilling our expectation
 
+Testing datetime: 30/10/2020 13:33 @PolyU V core
+
+| Test unit  | Temperature () | Humidity |
+| ------------- | ------------- | ------------- |
+| Prototype 1  | 29.0  | 60.6  |
+| HKO data  | 26.3  | 73  |
+|  Physical thermometer & humidity meter | 29  | 55  |
+![Test 1 data result](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/test1DataResult.jpg)
 #### Finding:
+- HKO data can only reflecting a relatively large area (district level), but not minor climate
+- The prototype 1 has to be connected the a power source, a battery-powered system would be better
+- A housing for prototype 1 is be good to have
+
 ---
 ### The compatibility of capturing user feedback 
 Assumption: User would like to give feedback about the level of comfort if they are provided a chance
@@ -30,7 +43,7 @@ The prototype 1 can capture the user feedback
 For this prototype, we would like to capture 2 data from user: "Too cold" & "Too hot". We set up 2 push buttons in the system as for the purpose.
 
 #### Testing set up:
-Wehen user is pressing either of the buttons, the system should provide a Serial output: "User felt too hot." or "User felt too cold" coorespondingly.
+When user is pressing either of the buttons, the system should provide a Serial output: "User felt too hot." or "User felt too cold" coorespondingly.
 
 #### Result:
 Failed, the push buttons we had are for soidering use, we can't use it on a breadboard.
