@@ -8,7 +8,8 @@ The goal for this prototype is for validating the concepts/ assumptions related 
 #### Assumption: 
 The HKO data can only show marco climate but not focusing on relatively small geolocation
 #### Expectation: 
-The prototype 1 can provide the micro climate data which should be slightly different from the HKO one
+- The prototype 1 can provide the micro climate data which should be slightly different from the HKO one
+- The data could help on user making daily life decision (What to wear or when to do laundry)
 #### Design:
 A temperature/ humidity sensor, DHT 22 is connected to the system and it should provide a reading to Serial output every 4 seconds
 #### Testing set up:
@@ -27,12 +28,18 @@ Testing datetime: 30/10/2020 13:33 @PolyU V core
 | Prototype 1  | 29.0  | 60.6  |
 | HKO data  | 26.3  | 73  |
 |  Physical thermometer & humidity meter | 29  | 55  |
+
+
 ![Test 1 data result](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/test1DataResult.jpg)
-#### Finding:
+#### Technical Finding:
 - HKO data can only reflecting a relatively large area (district level), but not minor climate
 - The prototype 1 has to be connected the a power source, a battery-powered system would be better
 - A housing for prototype 1 is be good to have
 
+### User Finding
+- The sight difference (+- 5%) in temperature/ humidity is not that useful -> I have not feeling with the figure
+- "Sometime I may feel hot/ windy if I just referencing HKO temperature data, but this is not often. But I always feel cold but I don't have a jacket with me when I am visiting different indoor venues, even taking a bus."
+- User don't reference to the weather often when doing laundry, just not raining will be fine. Typical HKers will have dehumidifier at home. 
 ---
 ### The compatibility of capturing user feedback 
 Assumption: User would like to give feedback about the level of comfort if they are provided a chance
@@ -54,6 +61,7 @@ Failed, the push buttons we had are for soidering use, we can't use it on a brea
 - The button signals are "bouncing" even with just a single press, a debounce treatment is needed 
 - Users suggested we may added the third button "Just right" for providing us a more comphersive understanding on user's comfort
 
+
 ---
 ### Notification/ alert about humidity (Technical focus)
 #### Assumption: 
@@ -73,3 +81,8 @@ For this test case, we need a dramatical change in humidity within a short perio
 Success, the LED turned from green to red with the humidity reading rise to 60%+.
 ![System just run in](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/IMG_0090.jpeg)
 ![Sudden change in humdity](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/blob/main/prototype-1/assets/IMG_0091.jpeg)
+
+
+
+----
+[Repository ref./ Visual testing plan](https://github.com/hhhlau/SD5509-prototyping-and-scripting-2020/tree/main/prototype-1)
