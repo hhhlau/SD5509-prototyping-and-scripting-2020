@@ -1,2 +1,9 @@
 */node_modules
 */yarn.lock
+
+yarn.lock
+prototype-2/test-app/yarn.lock
+prototype-2/test-app/.env
+prototype-2/test-app/yarn.lock
+prototype-2/test-app/src/assets/AuthKey.p8
+prototype-2/test-app/yarn.lock
