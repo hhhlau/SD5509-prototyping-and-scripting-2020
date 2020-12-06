@@ -1,0 +1,8 @@
+{
+	deviceId: "test-001",
+	location: {
+		lat: 123.123,
+		long: 1233.123,
+		name: "PolyU Innovation Tower, V1121"
+	}
+}
