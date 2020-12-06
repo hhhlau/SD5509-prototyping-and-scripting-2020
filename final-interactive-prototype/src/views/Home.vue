@@ -116,7 +116,7 @@ export default {
           username: this.testProfile.name,
           gender: this.testProfile.gender,
           feelingTendance: this.testProfile.feelingTendance,
-          weighting: this.testProfile.weighting,
+          weighting: parseInt(this.testProfile.weighting),
           testCase: this.testProfile.testCaseNum,
         },
       });
