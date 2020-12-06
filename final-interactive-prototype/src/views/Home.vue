@@ -33,30 +33,50 @@
       </v-btn>
     </v-app-bar>
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-      <div>
-        <v-list shaped>
-          <v-subheader>REPORTS</v-subheader>
-          <v-list-item-group
-            v-model="selectedItem"
-            color="primary"
-          >
-            <v-list-item
-              v-for="(item, i) in items"
-              :key="i"
-            >
-              <v-list-item-icon>
-                <v-icon v-text="item.icon"></v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
-              </v-list-item-content>
-              <v-list-item-icon>
-                <v-icon v-text="'mdi-arrow-right'"></v-icon>
-              </v-list-item-icon>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </div>
+    <v-card class="mx-4 my-5">
+      <v-card-title primary-title> User test setting </v-card-title>
+      <v-card-text>
+        <v-text-field
+          name="name"
+          label="Testing name"
+          id="id"
+          v-model="testProfile.name"
+        ></v-text-field>
+        <v-select
+          :items="['Male', 'Female']"
+          label="Gender"
+          v-model="testProfile.gender"
+        ></v-select>
+        <v-select
+          :items="['Natural', 'Fear cold', 'Fear hot']"
+          label="Feeling tendance"
+          v-model="testProfile.feelingTendance"
+        ></v-select>
+        <v-text-field
+          name="weighting"
+          type="number"
+          label="Adjusting weight"
+          max="5"
+          min="-5"
+          id="weight"
+          v-model="testProfile.weighting"
+        ></v-text-field>
+        <v-select
+          :items="[1, 2]"
+          label="User test number"
+          v-model="testProfile.testCaseNum"
+        ></v-select>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn
+          color="success"
+          block
+          :disabled="!isReadyToStart"
+          @click="pushToTest"
+          >Start the test</v-btn
+        >
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -66,14 +86,41 @@
 
 export default {
   name: "Home",
+  computed: {
+    isReadyToStart: function () {
+      return (
+        this.testProfile.name !== null &&
+        this.testProfile.gender !== null &&
+        this.testProfile.feelingTendance !== null &&
+        this.testProfile.weighting !== null &&
+        this.testProfile.testCaseNum !== null
+      );
+    },
+  },
   data() {
     return {
-      items: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ]
-    }
-  }  
+      testProfile: {
+        name: null,
+        gender: null,
+        feelingTendance: null,
+        weighting: 0,
+        testCaseNum: null,
+      },
+    };
+  },
+  methods: {
+    pushToTest() {
+      this.$router.push({
+        name: "Test",
+        params: {
+          username: this.testProfile.name,
+          gender: this.testProfile.gender,
+          feelingTendance: this.testProfile.feelingTendance,
+          weighting: this.testProfile.weighting,
+          testCase: this.testProfile.testCaseNum,
+        },
+      });
+    },
+  },
 };
 </script>
