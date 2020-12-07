@@ -1,5 +1,6 @@
 <template>
   <div class="prototype-view">
+    <img :src="require(`@/assets/bg-library.png`)" alt="" class="bg">
     <div class="search-bar">
       <v-autocomplete
         prepend-icon="mdi-search"
@@ -82,10 +83,15 @@ export default {
   mounted() {
     this.setCurrentTime();
     this.currentTimer = setInterval(this.setCurrentTime(), 1000);
+    if (this.feelingTendance === "Fear cold"){
+      this.userFeedbackAdjustment = -2
+    } else if (this.feelingTendance === "Fear hot"){
+      this.userFeedbackAdjustment = 2
+    }
   },
   computed: {
     greetingText() {
-      return `Hi ${this.username}, according to our sensors data and your perferences, we suggest you to wear...`;
+      return `Hi ${this.username}, according to our sensors data and your perferences, here is our suggestion for your outfit for today. ${(this.myBodyTemp < 20 && this.myBodyTemp > 17)?'Bring a jacket with you maybe a good choice~':''}`;
     },
     myBodyTemp() {
       return (
@@ -110,8 +116,8 @@ export default {
     return {
       currentTime: null,
       currentTimer: null,
-      currentLocation: "PolyU Innovation Tower, V1122",
-      currentSensorTemp: 25.2,
+      currentLocation: "Pao Yue-kong Library",
+      currentSensorTemp: 21.2,
       userFeedbackAdjustment: 0,
       isBottomSheet: false,
     };
@@ -139,11 +145,23 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+}
+.prototype-view > div {
+  position: relative;
+  z-index: 1;
+}
+.prototype-view > .bg{
+  width: 100vw;
+  height: inherit;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
 }
 .search-bar {
   width: 90vw;
   height: 50px;
-  background-color: white;
+  /* background-color: white; */
   border-radius: 15px;
   margin-top: 16px;
   margin-bottom: 16px;
