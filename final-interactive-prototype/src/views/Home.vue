@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <v-app-bar app color="red" dark>
+    <!-- <v-app-bar app color="red" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -31,9 +31,15 @@
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
-    </v-app-bar>
+    </v-app-bar> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App" /> -->
-    <v-card class="mx-4 my-5">
+    <div class="instruction-block ma-5">
+      This page is designed for configuring the prototype to fit different cases for the user test session.
+      <ul>
+        <li>Adjusting weight is used for further customising the body temperature data based for user pre-test result</li>
+      </ul>
+    </div>
+    <v-card class="mx-5 my-5">
       <v-card-title primary-title> User test setting </v-card-title>
       <v-card-text>
         <v-text-field
@@ -52,7 +58,26 @@
           label="Feeling tendance"
           v-model="testProfile.feelingTendance"
         ></v-select>
-        <v-text-field
+        <v-slider
+            v-model="testProfile.weighting"
+            class="align-center"
+            max="5"
+            min="-5"
+            hide-details
+            label="Adjusting weight"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="testProfile.weighting"
+                class="mt-0 pt-0"
+                hide-details
+                single-line
+                type="number"
+                style="width: 60px"
+              ></v-text-field>
+            </template>
+          </v-slider>
+        <!-- <v-text-field
           name="weighting"
           type="number"
           label="Adjusting weight"
@@ -60,7 +85,7 @@
           min="-5"
           id="weight"
           v-model="testProfile.weighting"
-        ></v-text-field>
+        ></v-text-field> -->
         <v-select
           :items="[1, 2]"
           label="User test number"
@@ -124,3 +149,12 @@ export default {
   },
 };
 </script>
+
+<style>
+  .instruction-block {
+    border-radius: 15px;
+    background-color: #f0f0f0;
+    padding: 16px;
+    margin: 16px;
+  }
+</style>
