@@ -12,7 +12,7 @@
     </div>
     <div class="info-block">
       <div class="location-name">{{ currentLocation }}</div>
-      <div class="data-point-from-time">{{ currentTime }}</div>
+      <div class="data-point-from-time">{{sensorDataFromNow}}, {{ sensorDataTime }}</div>
       <div v-if="testCase === 1">
         <div class="big-temp-title">Current temperature</div>
         <div class="big-temp">{{ currentSensorTemp }}℃</div>
@@ -29,11 +29,11 @@
     <div class="avtar-block">
       <img :src="require(`@/assets/${avtarUrl}`)" alt="" />
     </div>
-    <div class="bottom-block">
+    <div class="bottom-block mb-5">
       <div class="msg-block">
         {{ greetingText }}
       </div>
-      <div class="feeling-btn" @click="toggleBottomSheet"></div>
+      <div class="feeling-btn" @click="toggleBottomSheet">+</div>
     </div>
     <v-bottom-sheet v-model="isBottomSheet">
       <v-sheet class="text-center" height="200px">
@@ -60,11 +60,18 @@
         </v-row>
       </v-sheet>
     </v-bottom-sheet>
+    <div class="feedback-thankyou-view" v-if="isFeedback">
+      <img :src="require('@/assets/feedback_thankyou.png')" alt="">
+    </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms || 1000));
+}
 export default {
   name: "PrototypeView",
   props: {
@@ -80,13 +87,30 @@ export default {
       default: 1,
     },
   },
+  mqtt: {
+    'sensor-update': function(data) {
+      let _msg = JSON.parse(data)
+      this.currentSensorTemp = Math.round(_msg.res.temperature* 10)/10
+      this.currentSensorTimestamp = _msg.timestamp
+
+    }
+  },
   mounted() {
+    this.$mqtt.subscribe('sensor-update')
     this.setCurrentTime();
     this.currentTimer = setInterval(this.setCurrentTime(), 1000);
     if (this.feelingTendance === "Fear cold"){
       this.userFeedbackAdjustment = -2
     } else if (this.feelingTendance === "Fear hot"){
       this.userFeedbackAdjustment = 2
+    }
+  },
+  watch: {
+    async isFeedback() {
+      if (this.isFeedback){
+        await sleep(4000);
+        this.isFeedback = false
+      }
     }
   },
   computed: {
@@ -111,6 +135,12 @@ export default {
       }
       return `${_gender}-${_feeling}.png`;
     },
+    sensorDataTime() {
+      return moment(this.currentSensorTimestamp).format(`h:mm a`)
+    },
+    sensorDataFromNow() {
+      return moment(this.currentSensorTimestamp).fromNow()
+    }
   },
   data() {
     return {
@@ -118,8 +148,10 @@ export default {
       currentTimer: null,
       currentLocation: "Pao Yue-kong Library",
       currentSensorTemp: 21.2,
+      currentSensorTimestamp: null,
       userFeedbackAdjustment: 0,
       isBottomSheet: false,
+      isFeedback: false
     };
   },
   methods: {
@@ -131,6 +163,8 @@ export default {
     },
     userAdjustment(adj) {
       this.userFeedbackAdjustment += adj;
+      this.isBottomSheet = false
+      this.isFeedback = true
       console.log(this.userFeedbackAdjustment);
     },
   },
@@ -225,8 +259,29 @@ export default {
   height: 50px;
   border-radius: 50%;
   background-color: #12a3c1;
+
+    padding-top: 2px;
+    font-size: 30px;
+    font-weight: bold;
+
 }
 .feeling-inner-btn {
   height: 120px;
+}
+
+.feedback-thankyou-view {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,0.82);
+  position: absolute !important;;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.feedback-thankyou-view > img {
+  width: 80%;
 }
 </style>
